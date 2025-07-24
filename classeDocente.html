@@ -166,7 +166,6 @@
 </main>
 
 <script>
-  // Studenti iniziali
   const studentiClasse = [
     { nome: "Anna", cognome: "Rossi", data: "2006-03-14" },
     { nome: "Luca", cognome: "Bianchi", data: "2007-07-09" },
@@ -179,7 +178,8 @@
     { nome: "Elisa", cognome: "Conti", data: "2008-01-13" }
   ];
 
-  // Rendering classe
+  let showingClasse = true; // per tenere traccia della sezione visibile
+
   function renderStudentiClasse(lista) {
     const tbody = document.getElementById("student-table-body");
     tbody.innerHTML = "";
@@ -196,11 +196,10 @@
     });
   }
 
-  // Rendering disponibili
-  function renderStudentiDisponibili() {
+  function renderStudentiDisponibili(lista = null) {
     const tbody = document.getElementById("available-student-body");
     tbody.innerHTML = "";
-    const disponibili = tuttiStudenti.filter(s =>
+    const disponibili = lista || tuttiStudenti.filter(s =>
       !studentiClasse.some(c =>
         c.nome === s.nome && c.cognome === s.cognome && c.data === s.data
       )
@@ -221,9 +220,9 @@
     const classeWrapper = document.getElementById("classe-wrapper");
     const addableContainer = document.getElementById("addable-container");
     const toggleBtn = document.getElementById("toggle-button");
-    const isVisible = addableContainer.style.display === "block";
 
-    if (isVisible) {
+    showingClasse = !showingClasse;
+    if (showingClasse) {
       addableContainer.style.display = "none";
       classeWrapper.style.display = "block";
       toggleBtn.textContent = "Aggiungi";
@@ -253,27 +252,32 @@
     clearTimeout(window.timer);
     const query = this.value.trim().toLowerCase();
     window.timer = setTimeout(() => {
-      const filtrati = studentiClasse.filter(s =>
-        s.nome.toLowerCase().includes(query) || s.cognome.toLowerCase().includes(query)
-      );
-      renderStudentiClasse(filtrati);
+      if (showingClasse) {
+        const filtrati = studentiClasse.filter(s =>
+          s.nome.toLowerCase().includes(query) || s.cognome.toLowerCase().includes(query)
+        );
+        renderStudentiClasse(filtrati);
+      } else {
+        const disponibili = tuttiStudenti.filter(s =>
+          !studentiClasse.some(c => c.nome === s.nome && c.cognome === s.cognome && c.data === s.data)
+        );
+        const filtrati = disponibili.filter(s =>
+          s.nome.toLowerCase().includes(query) || s.cognome.toLowerCase().includes(query)
+        );
+        renderStudentiDisponibili(filtrati);
+      }
     }, 300);
   });
 
-  // 🔁 Redirezione intelligente "Dashboard"
   document.getElementById("dashboard-link").addEventListener("click", function (e) {
     e.preventDefault();
     const tipo = localStorage.getItem("tipo");
-    if (tipo === "docente") {
-      window.location.href = "dashboardDocente.html";
-    } else {
-      window.location.href = "dashboard_studente.html";
-    }
+    window.location.href = tipo === "docente" ? "dashboardDocente.html" : "dashboard_studente.html";
   });
 
-  // Avvio iniziale
   renderStudentiClasse(studentiClasse);
 </script>
+
 
 </body>
 </html>
