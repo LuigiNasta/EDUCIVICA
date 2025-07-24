@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EDUCIVICA DASHBOARD</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styleDashboardDoc.css">
+  <link rel="stylesheet" href="styleHeader.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="static/img/favicon-32x32.png">
+</head>
+<body>
+
+<!-- HEADER statico incluso direttamente -->
+<header class="main-header">
+  <div class="container">
+    <div class="logo">
+      <a href="dashboardDocente.html">
+        <img src="EDUCIVICA.jpg" width="16%">
+      </a>
+    </div>
+    <nav class="navigation">
+      <a href="profilo.html" class="nav-link">
+        <i class="fas fa-user"></i><br>
+        <span>Profilo</span>
+      </a>
+      <a href="dashboard_docente.html" class="nav-link active">
+        <i class="fas fa-cubes"></i><br>
+        <span>Dashboard</span>
+      </a>
+      <a href="notifiche.html" class="nav-link">
+        <i class="fas fa-bell"></i><br>
+        <span>Notifiche</span>
+      </a>
+      <a href="chat.html" class="nav-link">
+        <i class="fas fa-comments"></i><br>
+        <span>Chat</span>
+      </a>
+    </nav>
+    <div class="user-info">
+      <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+      <form action="logout.html" method="POST" style="display:inline;">
+        <button type="submit" class="logout-button">
+          <i class="fa-solid fa-person-walking-luggage"></i><br>
+          <span>Logout</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENUTO DELLA DASHBOARD -->
+<div class="main-content">
+  <div class="dashboard">
+    <h2>Classifica di tutte le classi</h2>
+    <ul id="lista-classi">
+      <!-- Popolato da JavaScript -->
+    </ul>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-item">
+      <a href="creazione_classe.html">
+        <i class="fas fa-circle-plus"></i><br>
+        <span>Crea Classe Virtuale</span>
+      </a>
+    </div>
+  </aside>
+</div>
+
+<script>
+  // Simulazione dei dati dinamici delle classi
+  const classi = [
+    { id_classe: 1, nome_classe: "1A", punteggio_totale: 120 },
+    { id_classe: 2, nome_classe: "2B", punteggio_totale: 95 },
+    { id_classe: 3, nome_classe: "3C", punteggio_totale: 110 },
+  ];
+
+  const listaClassi = document.getElementById('lista-classi');
+
+  classi.forEach(classe => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <strong>${classe.nome_classe} - Punteggio Totale: ${classe.punteggio_totale}</strong>
+      <span>
+        <a class="pulsante" href="classifica_classe.html?id=${classe.id_classe}">
+          <button class="bottone">Classifica classe</button>
+        </a>
+        <a class="pulsante" href="gestione_classe.html?id=${classe.id_classe}">
+          <button class="bottone">Gestione classe</button>
+        </a>
+      </span>
+    `;
+    listaClassi.appendChild(li);
+  });
+
+  // Imposta dinamicamente il nome utente (facoltativo)
+  const nomeUtente = "Mario";
+  document.getElementById("username").textContent = nomeUtente;
+</script>
+
+</body>
+</html>
