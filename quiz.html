@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Costituzione Italiana - Quiz</title>
+    <link rel="stylesheet" href="css/styleHeader.css" />
+    <link rel="stylesheet" href="css/styleQuiz.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}" />
+    <style>
+        /* Puoi aggiungere qui eventuali stili specifici inline se vuoi */
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="dashboardDocente.html">
+                    <img src="EDUCIVICA.jpg" width="16%" alt="Logo Educivica" />
+                </a>
+            </div>
+            <nav class="navigation">
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-user"></i><br />
+                    <span>Profilo</span>
+                </a>
+                <a href="dashboard_docente.html" class="nav-link active">
+                    <i class="fas fa-cubes"></i><br />
+                    <span>Dashboard</span>
+                </a>
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-bell"></i><br />
+                    <span>Notifiche</span>
+                </a>
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-comments"></i><br />
+                    <span>Chat</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+                <form action="logout.html" method="POST" style="display:inline;">
+                    <button type="submit" class="logout-button">
+                        <i class="fa-solid fa-person-walking-luggage"></i><br />
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <h1>Costituzione Italiana</h1>
+        <p><strong>Durata:</strong> 60 minuti</p>
+        <p><strong>Tempo rimanente:</strong>
+            <span id="timer-minutes">{{ tempo_rimanente // 60 }}</span> minuti e
+            <span id="timer-seconds">{{ tempo_rimanente % 60 }}</span> secondi
+        </p>
+
+        <form id="quiz-form">
+            <br />
+            <!-- Domanda 1 -->
+            <div class="card">
+                <p><strong>1. Qual è l'organo di garanzia della Costituzione Italiana che si occupa di tutelare i diritti fondamentali dei cittadini?</strong></p>
+                <div class="options-container">
+                    <div class="option-container">
+                        <input type="radio" id="q1_1" name="q1" value="Corte Costituzionale" />
+                        <label for="q1_1">Corte Costituzionale</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q1_2" name="q1" value="Consiglio Superiore della Magistratura" />
+                        <label for="q1_2">Consiglio Superiore della Magistratura</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q1_3" name="q1" value="Consiglio di Stato" />
+                        <label for="q1_3">Consiglio di Stato</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domanda 2 -->
+            <div class="card">
+                <p><strong>2. Quale dei seguenti principi è sancito dall'articolo 1 della Costituzione Italiana?</strong></p>
+                <div class="options-container">
+                    <div class="option-container">
+                        <input type="radio" id="q2_1" name="q2" value="A" />
+                        <label for="q2_1">L'Italia è una Repubblica fondata sul lavoro</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q2_2" name="q2" value="B" />
+                        <label for="q2_2">La sovranità appartiene allo Stato</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q2_3" name="q2" value="C" />
+                        <label for="q2_3">L'Italia è una monarchia costituzionale</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domanda 3 -->
+            <div class="card">
+                <p><strong>3. Quale dei seguenti organi ha il compito di eleggere il Presidente della Repubblica?</strong></p>
+                <div class="options-container">
+                    <div class="option-container">
+                        <input type="radio" id="q3_1" name="q3" value="A" />
+                        <label for="q3_1">Il Parlamento in seduta comune e delegati regionali</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q3_2" name="q3" value="B" />
+                        <label for="q3_2">Il Consiglio dei Ministri</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q3_3" name="q3" value="C" />
+                        <label for="q3_3">La Corte Costituzionale</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domanda 4 -->
+            <div class="card">
+                <p><strong>4. Cosa stabilisce l’articolo 3 della Costituzione Italiana?</strong></p>
+                <div class="options-container">
+                    <div class="option-container">
+                        <input type="radio" id="q4_1" name="q4" value="A" />
+                        <label for="q4_1">Tutti i cittadini hanno pari dignità sociale e sono eguali davanti alla legge</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q4_2" name="q4" value="B" />
+                        <label for="q4_2">Lo Stato può limitare le libertà in caso di emergenza</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q4_3" name="q4" value="C" />
+                        <label for="q4_3">Il Presidente della Repubblica nomina i giudici</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domanda 5 -->
+            <div class="card">
+                <p><strong>5. Quale tra questi diritti è garantito dalla Costituzione Italiana?</strong></p>
+                <div class="options-container">
+                    <div class="option-container">
+                        <input type="radio" id="q5_1" name="q5" value="A" />
+                        <label for="q5_1">Libertà personale inviolabile</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q5_2" name="q5" value="B" />
+                        <label for="q5_2">Obbligo di aderire a un partito politico</label>
+                    </div>
+                    <div class="option-container">
+                        <input type="radio" id="q5_3" name="q5" value="C" />
+                        <label for="q5_3">Divieto assoluto di sciopero</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn">Invia Risposte</button>
+        </form>
+    </div>
+
+    <!-- Modale risultato -->
+    <div id="result-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%);
+        background:white; padding:20px; border-radius:8px; box-shadow: 0 0 15px rgba(0,0,0,0.2); z-index:1000;">
+        <h2>Risultato del Quiz</h2>
+        <p id="result-message"></p>
+        <button id="close-modal" class="btn" style="padding:10px 20px; background-color:#007bff; color:white; border:none; border-radius:5px; cursor:pointer;">Chiudi</button>
+    </div>
+    <div id="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+        background:rgba(0,0,0,0.5); z-index:999;"></div>
+
+    <script>
+        const timerMinutesElement = document.getElementById('timer-minutes');
+        const timerSecondsElement = document.getElementById('timer-seconds');
+        const quizForm = document.getElementById('quiz-form');
+        const statusMessage = document.getElementById('result-message');
+        const resultModal = document.getElementById('result-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        // Durata quiz in secondi (60 minuti)
+        const quizDuration = 60 * 60;
+
+        // Recupera ora inizio quiz da localStorage oppure la imposta ora corrente
+        let quizStartTime = localStorage.getItem('quizStartTime');
+        if (!quizStartTime) {
+            quizStartTime = Date.now();
+            localStorage.setItem('quizStartTime', quizStartTime);
+        }
+
+        // Calcola tempo rimanente
+        function calculateRemainingTime() {
+            const elapsedTime = Math.floor((Date.now() - quizStartTime) / 1000);
+            return Math.max(quizDuration - elapsedTime, 0);
+        }
+
+        // Aggiorna timer
+        function updateTimer() {
+            const remainingTime = calculateRemainingTime();
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+
+            timerMinutesElement.textContent = minutes;
+            timerSecondsElement.textContent = seconds.toString().padStart(2, '0');
+
+            if (remainingTime === 0) {
+                alert("Il tempo è scaduto! Il quiz verrà inviato automaticamente.");
+                submitQuiz(); // auto submit al tempo scaduto
+            }
+        }
+
+        // Aggiorna ogni secondo
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Submit del form
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            showModal('Hai ottenuto un punteggio dell\'80%. Risposte esatte 4/5.');
+        });
+
+        async function submitQuiz() {
+    // Prendi dati del form
+    const formData = new FormData(quizForm);
+    const jsonData = {};
+    formData.forEach((value, key) => jsonData[key] = value);
+
+    try {
+        const response = await fetch("{{ url_for('quiz.valuta_quiz') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jsonData)
+        });
+
+        if (!response.ok) {
+            // Se risposta non OK (es. 400, 500), leggi testo per messaggio d’errore
+            const errorText = await response.text();
+            showModal(`Errore nel server: ${errorText || response.statusText}`);
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.error) {
+            showModal(`Errore: ${data.error}`);
+            return;
+        }
+
+        // Mostra risultato nel modale
+        showModal(`Hai ottenuto un punteggio di <strong>${data.percentuale}%</strong>.<br>Domande corrette: <strong>${data.correte}/${data.totali}</strong>.`);
+
+    } catch (error) {
+        showModal('Errore durante l\'invio delle risposte. Riprova.');
+        console.error(error);
+    }
+}
+
+// Funzione helper per mostrare messaggi nel modale
+function showModal(message) {
+    statusMessage.innerHTML = message;
+    resultModal.style.display = 'block';
+    modalOverlay.style.display = 'block';
+}
+
+        // Chiudi modale
+        closeModalBtn.addEventListener('click', () => {
+            resultModal.style.display = 'none';
+            modalOverlay.style.display = 'none';
+            localStorage.removeItem('quizStartTime'); // reset timer
+            window.location.href = "./quizDisponibile.html";
+        });
+
+        // Chiudi modale cliccando sull'overlay
+        modalOverlay.addEventListener('click', () => {
+            closeModalBtn.click();
+        });
+    </script>
+</body>
+</html>

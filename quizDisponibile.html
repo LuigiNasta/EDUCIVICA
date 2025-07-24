@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Disponibile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styleQuizDisponibili.css">
+    <link rel="stylesheet" href="css/styleDashboardDoc.css">
+    <link rel="stylesheet" href="css/styleHeader.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- HEADER statico incluso direttamente -->
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboardDocente.html">
+          <img src="EDUCIVICA.jpg" width="16%">
+        </a>
+      </div>
+      <nav class="navigation">
+        <a href="errore.html" class="nav-link">
+          <i class="fas fa-user"></i><br>
+          <span>Profilo</span>
+        </a>
+        <a href="dashboard_docente.html" class="nav-link active">
+          <i class="fas fa-cubes"></i><br>
+          <span>Dashboard</span>
+        </a>
+        <a href="errore.html" class="nav-link">
+          <i class="fas fa-bell"></i><br>
+          <span>Notifiche</span>
+        </a>
+        <a href="errore.html" class="nav-link">
+          <i class="fas fa-comments"></i><br>
+          <span>Chat</span>
+        </a>
+      </nav>
+      <div class="user-info">
+        <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+        <form action="logout.html" method="POST" style="display:inline;">
+          <button type="submit" class="logout-button">
+            <i class="fa-solid fa-person-walking-luggage"></i><br>
+            <span>Logout</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+  
+  <div class="main-content">
+    <div class="container2">
+      <h1>Quiz Disponibile</h1>
+      <div class="quiz-card">
+        <div class="quiz-info">
+            <h2>Costituzione Italiana - Quarto Quiz</h2>
+            <p>Durata del quiz: <span>60 min</span></p>
+            <p>Numero domande quiz: <span>5</span></p>
+        </div>
+        <div class="quiz-button">
+          <a href="quiz.html">
+              <button>Inizia Quiz &#9658;</button>
+          </a>
+      </div>
+  </div>
+<a href="{{ url_for('dashboard.dashboard_studente') }}">
+  <button class="back-button"></button>
+</a>
+</div>
+
+
+    <aside class="sidebar">
+      <div class="sidebar-item">
+        <a href="creazione_classe.html">
+          <i class="fas fa-circle-plus"></i><br>
+          <span>Crea Classe Virtuale</span>
+        </a>
+      </div>
+      <br>
+      <div class="sidebar-item">
+        <a href="quizDisponibile.html">
+          <i class="fas fa-question-circle"></i><br>
+          <span>Quiz</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+  </body>
+  </html>
