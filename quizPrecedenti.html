@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Precedenti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styleClasse.css">
+  <link rel="stylesheet" href="styleHeader.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <style>
+    .quiz-container {
+      padding-right: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .quiz-wrapper {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      min-height: 100%;
+      width: 100%;
+      max-width: 92%;
+      margin: 0 auto;
+    }
+    .quiz-wrapper h1 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 24px;
+      text-align: left;
+    }
+    .quiz-item {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 20px;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quiz-details p {
+      margin: 4px 0;
+    }
+    .quiz-actions button {
+      margin-left: 10px;
+      padding: 6px 14px;
+      border: 1px solid #555;
+      background-color: white;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .quiz-actions button:hover {
+      background-color: #f0f0f0;
+    }
+    .quiz-actions a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="container">
+    <div class="logo">
+      <a href="dashboardDocente.html">
+        <img src="EDUCIVICA.jpg" width="16%">
+      </a>
+    </div>
+    <nav class="navigation">
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-user"></i><br>
+        <span>Profilo</span>
+      </a>
+      <a href="#" id="dashboard-link" class="nav-link active">
+        <i class="fas fa-cubes"></i><br>
+        <span>Dashboard</span>
+      </a>
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-bell"></i><br>
+        <span>Notifiche</span>
+      </a>
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-comments"></i><br>
+        <span>Chat</span>
+      </a>
+    </nav>
+    <div class="user-info">
+      <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+      <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+        <button type="submit" class="logout-button">
+          <i class="fa-solid fa-person-walking-luggage"></i><br>
+          <span>Logout</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<main class="main-container">
+  <div class="quiz-container">
+    <div class="quiz-wrapper">
+      <h1>Quiz precedentemente generati</h1>
+      <div id="quiz-list-container"></div>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-item">
+      <a href="quizPrecedenti.html">
+        <i class="fas fa-question-circle"></i>
+        <span>Nuovo Quiz</span>
+      </a>
+    </div>
+  </aside>
+</main>
+
+<script>
+  const quizList = [
+    { id_quiz: 101, titolo: "Costituzione Italiana - Primo Quiz", argomento: "Costituzione Italiana", n_domande: 5 },
+    { id_quiz: 102, titolo: "Costituzione Italiana - Primo Quiz", argomento: "Costituzione Italiana", n_domande: 5 }
+  ];
+
+  const container = document.getElementById("quiz-list-container");
+
+  if (quizList.length === 0) {
+    container.innerHTML = "<p>Nessun quiz trovato per questa classe.</p>";
+  } else {
+    quizList.forEach(quiz => {
+      const div = document.createElement("div");
+      div.className = "quiz-item";
+      div.innerHTML = `
+        <div class="quiz-details">
+          <p><strong>${quiz.titolo}</strong></p>
+          <p>Argomento: ${quiz.argomento}</p>
+          <p>N° Domande: ${quiz.n_domande}</p>
+        </div>
+        <div class="quiz-actions">
+          <a href="risultati_quiz.html?quiz_id=${quiz.id_quiz}">
+            <button>Risultati</button>
+          </a>
+          <a href="visualizza_domande.html?quiz_id=${quiz.id_quiz}">
+            <button>Visualizza</button>
+          </a>
+        </div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  document.getElementById("dashboard-link").addEventListener("click", function (e) {
+    e.preventDefault();
+    const tipo = localStorage.getItem("tipo");
+    window.location.href = tipo === "docente" ? "dashboardDocente.html" : "dashboard_studente.html";
+  });
+</script>
+
+</body>
+</html>

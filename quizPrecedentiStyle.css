@@ -1,0 +1,88 @@
+.quiz-container {
+  flex: 1;
+  padding: 40px;
+}
+
+.quiz-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.quiz-item {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz-details p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.quiz-details strong {
+  font-size: 16px;
+}
+
+.quiz-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.quiz-actions button {
+  border: 1px solid #333;
+  background: white;
+  color: black;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.quiz-actions button:hover {
+  background: #f1f1f1;
+}
+
+/* Sidebar: stile del pulsante "Crea Quiz" */
+.sidebar {
+  margin-top: 60px;
+  padding-right: 40px;
+}
+
+.sidebar-item {
+  background: #b02c2c;
+  padding: 16px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  width: 120px;
+  position: relative;
+}
+
+.sidebar-item i {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.sidebar-item span {
+  display: block;
+  font-weight: bold;
+}
+
+.sidebar-item::after {
+  content: "➤";
+  font-size: 2rem;
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: black;
+}
+
+.sidebar-item:hover {
+  background-color: #8f2323;
+}
