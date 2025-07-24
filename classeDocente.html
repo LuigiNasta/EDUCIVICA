@@ -2,8 +2,8 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Classe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styleClasse.css">
   <link rel="stylesheet" href="styleHeader.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -61,7 +61,6 @@
 </head>
 <body>
 
-<!-- HEADER statico incluso direttamente -->
 <header class="main-header">
   <div class="container">
     <div class="logo">
@@ -74,7 +73,7 @@
         <i class="fas fa-user"></i><br>
         <span>Profilo</span>
       </a>
-      <a href="dashboard_docente.html" class="nav-link active">
+      <a href="#" id="dashboard-link" class="nav-link active">
         <i class="fas fa-cubes"></i><br>
         <span>Dashboard</span>
       </a>
@@ -167,6 +166,7 @@
 </main>
 
 <script>
+  // Studenti iniziali
   const studentiClasse = [
     { nome: "Anna", cognome: "Rossi", data: "2006-03-14" },
     { nome: "Luca", cognome: "Bianchi", data: "2007-07-09" },
@@ -174,13 +174,12 @@
   ];
 
   const tuttiStudenti = [
-    { nome: "Anna", cognome: "Rossi", data: "2006-03-14" },
-    { nome: "Luca", cognome: "Bianchi", data: "2007-07-09" },
-    { nome: "Giulia", cognome: "Verdi", data: "2006-11-25" },
+    ...studentiClasse,
     { nome: "Marco", cognome: "Neri", data: "2005-05-20" },
     { nome: "Elisa", cognome: "Conti", data: "2008-01-13" }
   ];
 
+  // Rendering classe
   function renderStudentiClasse(lista) {
     const tbody = document.getElementById("student-table-body");
     tbody.innerHTML = "";
@@ -197,11 +196,16 @@
     });
   }
 
+  // Rendering disponibili
   function renderStudentiDisponibili() {
     const tbody = document.getElementById("available-student-body");
     tbody.innerHTML = "";
-    const disponibili = tuttiStudenti.filter(s => !studentiClasse.some(c => c.nome === s.nome && c.cognome === s.cognome && c.data === s.data));
-    disponibili.forEach((s, idx) => {
+    const disponibili = tuttiStudenti.filter(s =>
+      !studentiClasse.some(c =>
+        c.nome === s.nome && c.cognome === s.cognome && c.data === s.data
+      )
+    );
+    disponibili.forEach(s => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${s.nome}</td>
@@ -217,8 +221,8 @@
     const classeWrapper = document.getElementById("classe-wrapper");
     const addableContainer = document.getElementById("addable-container");
     const toggleBtn = document.getElementById("toggle-button");
-
     const isVisible = addableContainer.style.display === "block";
+
     if (isVisible) {
       addableContainer.style.display = "none";
       classeWrapper.style.display = "block";
@@ -250,13 +254,24 @@
     const query = this.value.trim().toLowerCase();
     window.timer = setTimeout(() => {
       const filtrati = studentiClasse.filter(s =>
-        s.nome.toLowerCase().includes(query) ||
-        s.cognome.toLowerCase().includes(query)
+        s.nome.toLowerCase().includes(query) || s.cognome.toLowerCase().includes(query)
       );
       renderStudentiClasse(filtrati);
     }, 300);
   });
 
+  // 🔁 Redirezione intelligente "Dashboard"
+  document.getElementById("dashboard-link").addEventListener("click", function (e) {
+    e.preventDefault();
+    const tipo = localStorage.getItem("tipo");
+    if (tipo === "docente") {
+      window.location.href = "dashboardDocente.html";
+    } else {
+      window.location.href = "dashboard_studente.html";
+    }
+  });
+
+  // Avvio iniziale
   renderStudentiClasse(studentiClasse);
 </script>
 

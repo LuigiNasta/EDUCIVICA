@@ -164,7 +164,14 @@
   document.getElementById("loginForm").onsubmit = e => {
     e.preventDefault();
     const email = document.getElementById("login-email").value.toLowerCase();
-    window.location.href = email === "aldodamiano.gta@gmail.com" ? "dashboardDocente.html" : "dashboard_studente.html";
+    if (email === "aldodamiano.gta@gmail.com") {
+  localStorage.setItem("tipo", "docente");
+  window.location.href = "dashboardDocente.html";
+} else {
+  localStorage.setItem("tipo", "studente");
+  window.location.href = "dashboard_studente.html";
+}
+
   };
 
   document.getElementById("registrazioneForm").onsubmit = e => {

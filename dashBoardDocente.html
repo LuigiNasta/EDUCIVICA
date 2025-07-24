@@ -23,7 +23,7 @@
         <i class="fas fa-user"></i><br>
         <span>Profilo</span>
       </a>
-      <a href="dashboard_docente.html" class="nav-link active">
+      <a href="dashboardDocente.html" class="nav-link active">
         <i class="fas fa-cubes"></i><br>
         <span>Dashboard</span>
       </a>
@@ -68,7 +68,6 @@
 </div>
 
 <script>
-  // Simulazione dei dati dinamici delle classi
   const classi = [
     { id_classe: 1, nome_classe: "1A", punteggio_totale: 120 },
     { id_classe: 2, nome_classe: "2B", punteggio_totale: 95 },
@@ -85,15 +84,23 @@
         <a class="pulsante" href="classifica_classe.html?id=${classe.id_classe}">
           <button class="bottone">Classifica classe</button>
         </a>
-        <a class="pulsante" href="gestione_classe.html?id=${classe.id_classe}">
-          <button class="bottone">Gestione classe</button>
-        </a>
+        <button class="bottone gestione-classe-btn" data-id="${classe.id_classe}">Gestione classe</button>
       </span>
     `;
     listaClassi.appendChild(li);
   });
 
-  // Imposta dinamicamente il nome utente (facoltativo)
+  // Gestione click su "Gestione classe" in base a tipo utente
+  document.querySelectorAll('.gestione-classe-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      const tipo = localStorage.getItem('tipo');
+      const id = this.getAttribute('data-id');
+      const destinazione = tipo === 'docente' ? 'classeDocente.html' : 'classeStudente.html';
+      window.location.href = `${destinazione}?id=${id}`;
+    });
+  });
+
+  // Nome utente dinamico (opzionale)
   const nomeUtente = "Mario";
   document.getElementById("username").textContent = nomeUtente;
 </script>
