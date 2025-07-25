@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Classe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styleClasse.css">
+  <link rel="stylesheet" href="css/styleHeader.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <style>
+    .action-button, .add-icon-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: black;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+    }
+    .addable-container {
+      margin-top: 40px;
+      display: none;
+    }
+    .addable-container h2 {
+      margin-bottom: 10px;
+    }
+    .student-table th:first-child {
+      border-top-left-radius: 8px;
+    }
+    .student-table th:last-child {
+      border-top-right-radius: 8px;
+    }
+    .student-table td:first-child {
+      border-bottom-left-radius: 8px;
+    }
+    .student-table td:last-child {
+      border-bottom-right-radius: 8px;
+    }
+    .add-student-button {
+      padding: 8px 12px;
+      margin-left: 10px;
+      font-weight: bold;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .action-cell {
+      text-align: center;
+      width: 32px;
+    }
+    .student-table i {
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="container">
+    <div class="logo">
+      <a href="dashboardStudente.html">
+        <img src="EDUCIVICA.jpg" width="16%">
+      </a>
+    </div>
+    <nav class="navigation">
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-user"></i><br>
+        <span>Profilo</span>
+      </a>
+      <a href="#" id="dashboard-link" class="nav-link active">
+        <i class="fas fa-cubes"></i><br>
+        <span>Dashboard</span>
+      </a>
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-bell"></i><br>
+        <span>Notifiche</span>
+      </a>
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-comments"></i><br>
+        <span>Chat</span>
+      </a>
+    </nav>
+    <div class="user-info">
+      <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+      <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+        <button type="submit" class="logout-button">
+          <i class="fa-solid fa-person-walking-luggage"></i><br>
+          <span>Logout</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<main class="main-container">
+  <div class="classe-container">
+    <h1>Classe</h1>
+    <div class="search-container">
+      <input type="text" id="search-bar" placeholder="Cerca studente" class="search-bar">
+    </div>
+
+    <div class="table-wrapper" id="classe-wrapper">
+      <table class="student-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data di nascita</th>
+          </tr>
+        </thead>
+        <tbody id="student-table-body"></tbody>
+      </table>
+    </div>
+
+    <div class="addable-container" id="addable-container">
+      <h2>Studenti disponibili nell'istituto</h2>
+      <table class="student-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data di nascita</th>
+          </tr>
+        </thead>
+        <tbody id="available-student-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-item">
+      <a href="materialeStudente.html">
+        <i class="fas fa-file-alt"></i>
+        <span>Materiale didattico</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="quizDisponibile.html">
+        <i class="fas fa-question-circle"></i>
+        <span>Quiz</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="errore.html">
+        <i class="fas fa-globe"></i>
+        <span>Scenari</span>
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a href="errore.html">
+        <i class="fas fa-trophy"></i>
+        <span>Achievement</span>
+      </a>
+    </div>
+  </aside>
+</main>
+
+<script>
+  const studentiClasse = [
+    { nome: "Anna", cognome: "Rossi", data: "2006-03-14" },
+    { nome: "Luca", cognome: "Bianchi", data: "2007-07-09" },
+    { nome: "Giulia", cognome: "Verdi", data: "2006-11-25" }
+  ];
+
+  const tuttiStudenti = [
+    ...studentiClasse,
+    { nome: "Marco", cognome: "Neri", data: "2005-05-20" },
+    { nome: "Elisa", cognome: "Conti", data: "2008-01-13" }
+  ];
+
+  let showingClasse = true; // per tenere traccia della sezione visibile
+
+  function renderStudentiClasse(lista) {
+    const tbody = document.getElementById("student-table-body");
+    tbody.innerHTML = "";
+    lista.forEach((s, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${s.nome}</td>
+        <td>${s.cognome}</td>
+        <td>${s.data}</td>      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function renderStudentiDisponibili(lista = null) {
+    const tbody = document.getElementById("available-student-body");
+    tbody.innerHTML = "";
+    const disponibili = lista || tuttiStudenti.filter(s =>
+      !studentiClasse.some(c =>
+        c.nome === s.nome && c.cognome === s.cognome && c.data === s.data
+      )
+    );
+    disponibili.forEach(s => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${s.nome}</td>
+        <td>${s.cognome}</td>
+        <td>${s.data}</td>
+        <td class="action-cell"><i class="fas fa-user-plus add-icon-button" onclick='aggiungiAllaClasse(${JSON.stringify(s)})'></i></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function toggleStudentiIstituto() {
+    const classeWrapper = document.getElementById("classe-wrapper");
+    const addableContainer = document.getElementById("addable-container");
+    const toggleBtn = document.getElementById("toggle-button");
+
+    showingClasse = !showingClasse;
+    if (showingClasse) {
+      addableContainer.style.display = "none";
+      classeWrapper.style.display = "block";
+      toggleBtn.textContent = "Aggiungi";
+      renderStudentiClasse(studentiClasse);
+    } else {
+      classeWrapper.style.display = "none";
+      addableContainer.style.display = "block";
+      toggleBtn.textContent = "Indietro";
+      renderStudentiDisponibili();
+    }
+  }
+
+  function aggiungiAllaClasse(studente) {
+    studentiClasse.push(studente);
+    renderStudentiClasse(studentiClasse);
+    renderStudentiDisponibili();
+  }
+
+  function rimuoviStudente(index) {
+    if (confirm("Sei sicuro di voler rimuovere questo studente?")) {
+      studentiClasse.splice(index, 1);
+      renderStudentiClasse(studentiClasse);
+    }
+  }
+
+  document.getElementById("search-bar").addEventListener("input", function () {
+    clearTimeout(window.timer);
+    const query = this.value.trim().toLowerCase();
+    window.timer = setTimeout(() => {
+      if (showingClasse) {
+        const filtrati = studentiClasse.filter(s =>
+          s.nome.toLowerCase().includes(query) || s.cognome.toLowerCase().includes(query)
+        );
+        renderStudentiClasse(filtrati);
+      } else {
+        const disponibili = tuttiStudenti.filter(s =>
+          !studentiClasse.some(c => c.nome === s.nome && c.cognome === s.cognome && c.data === s.data)
+        );
+        const filtrati = disponibili.filter(s =>
+          s.nome.toLowerCase().includes(query) || s.cognome.toLowerCase().includes(query)
+        );
+        renderStudentiDisponibili(filtrati);
+      }
+    }, 300);
+  });
+
+  document.getElementById("dashboard-link").addEventListener("click", function (e) {
+    e.preventDefault();
+    const tipo = localStorage.getItem("tipo");
+    window.location.href = tipo === "docente" ? "dashboardDocente.html" : "dashboardStudente.html";
+  });
+
+  renderStudentiClasse(studentiClasse);
+</script>
+
+
+</body>
+</html>
