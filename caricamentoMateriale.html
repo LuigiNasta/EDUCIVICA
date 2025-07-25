@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caricamento Materiale Didattico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styleCaricamentoMateriale.css">
+    <link rel="stylesheet" href="css/styleHeader.css">
+</head>
+<body>
+
+<header class="main-header">
+    <div class="container">
+        <div class="logo">
+            <a href="dashboardDocente.html">
+                <img src="EDUCIVICA.jpg" width="16%" alt="Logo Educivica" />
+            </a>
+        </div>
+        <nav class="navigation">
+            <a href="errore.html" class="nav-link"><i class="fas fa-user"></i><br><span>Profilo</span></a>
+            <a href="dashboard_docente.html" class="nav-link active"><i class="fas fa-cubes"></i><br><span>Dashboard</span></a>
+            <a href="errore.html" class="nav-link"><i class="fas fa-bell"></i><br><span>Notifiche</span></a>
+            <a href="errore.html" class="nav-link"><i class="fas fa-comments"></i><br><span>Chat</span></a>
+        </nav>
+        <div class="user-info">
+            <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+            <form action="logout.html" method="POST" style="display:inline;">
+                <button type="submit" class="logout-button">
+                    <i class="fa-solid fa-person-walking-luggage"></i><br>
+                    <span>Logout</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<div class="principal">
+    <h2>Caricamento Materiale Didattico</h2>
+
+    <form id="formMateriale" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="titolo">Titolo del Materiale:</label>
+            <input type="text" id="titolo" name="titolo" placeholder="Inserisci il titolo del materiale">
+        </div>
+        <div class="form-group">
+            <label for="descrizione">Descrizione:</label>
+            <textarea id="descrizione" name="descrizione" placeholder="Inserisci una breve descrizione" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo">
+                <option value="pdf">pdf</option>
+                <option value="docx">docx</option>
+                <option value="mp4">mp4</option>
+                <option value="jpg">jpg</option>
+                <option value="txt">txt</option>
+                <option value="png">png</option>
+                <option value="jpeg">jpeg</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="file">Seleziona il file:</label>
+            <input type="file" id="file" name="file">
+        </div>
+        <button type="submit" class="carica">Carica</button>
+        <a href="materialeDocente.html" class="btn-cancel">Annulla</a>
+    </form>
+</div>
+
+<script>
+document.getElementById('formMateriale').addEventListener('submit', function(e) {
+    e.preventDefault();
+    window.location.href = "materialeDocente.html?success=1";
+});
+</script>
+
+</body>
+</html>
