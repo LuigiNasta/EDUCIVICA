@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generazione Quiz</title>
+    <link rel="stylesheet" href="css/styleHeader.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .main {
+            max-width: 80%;
+            background-color: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 50px auto;
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+        }
+
+        .main h1, .main h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form div {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            padding: 12px;
+            border-radius: 20px;
+            border: 1px solid #aaa;
+            box-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+            outline: none;
+        }
+
+        input::placeholder,
+        select::placeholder {
+            color: #888;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .btn {
+            width: 20%;
+            flex: 1;
+            padding: 6px 14px;
+            border: none;
+            border-radius: 6px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            max-width: 48%;
+        }
+
+        .btn:hover {
+            background-color: #333;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .quiz-buttons button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid #888;
+            background-color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .quiz-buttons button:hover {
+            background-color: #f0f0f0;
+        }
+
+        .question {
+            margin-bottom: 24px;
+        }
+
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .option {
+            margin-left: 20px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<header class="main-header">
+  <div class="container">
+    <div class="logo">
+      <a href="dashboardDocente.html">
+        <img src="EDUCIVICA.jpg" width="16%">
+      </a>
+    </div>
+    <nav class="navigation">
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-user"></i><br><span>Profilo</span>
+      </a>
+      <a href="#" id="dashboard-link" class="nav-link active">
+        <i class="fas fa-cubes"></i><br><span>Dashboard</span>
+      </a>
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-bell"></i><br><span>Notifiche</span>
+      </a>
+      <a href="errore.html" class="nav-link">
+        <i class="fas fa-comments"></i><br><span>Chat</span>
+      </a>
+    </nav>
+    <div class="user-info">
+      <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+      <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+        <button type="submit" class="logout-button">
+          <i class="fa-solid fa-person-walking-luggage"></i><br>
+          <span>Logout</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<div class="main" id="main-box">
+  <h1>Creazione Quiz</h1>
+  <div id="error-message" style="color: red; display: none;"></div>
+  <form id="quiz-form">
+    <div id="form-section">
+      <div>
+        <label for="titolo">Titolo del Quiz</label>
+        <input type="text" id="titolo" placeholder="Inserisci titolo del quiz" required>
+      </div>
+      <div>
+        <label for="argomento">Argomento</label>
+        <input type="text" id="argomento" placeholder="Inserisci l'argomento" required>
+      </div>
+      <div>
+        <label for="n_domande">Numero di Domande</label>
+        <input type="number" id="n_domande" placeholder="Inserisci numero di domande" required>
+      </div>
+      <div>
+        <label for="durata">Durata del Quiz</label>
+        <input type="number" id="durata" placeholder="Inserisci durata del quiz" required>
+      </div>
+      <div>
+        <label for="modalita">Modalità di risposta</label>
+        <input type="text" id="modalita" placeholder="Inserisci modalità di risposta" required>
+      </div>
+      <div class="buttons">
+        <button type="submit" class="btn" id="genera-btn">Genera</button>
+        <button type="button" class="btn" onclick="window.location.href='classeDocente.html'">Indietro</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  let formBackup;
+
+  function attachSubmitHandler() {
+    const form = document.getElementById('quiz-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      formBackup = document.getElementById('main-box').innerHTML;
+
+      document.getElementById('main-box').innerHTML = `
+        <h2>Domande Generate</h2>
+
+        <div class="question">
+          <p>Domanda 1</p>
+          <div class="option">Quando è stata promulgata la Costituzione Italiana?</div>
+          <div class="option">A) 1946</div>
+          <div class="option">B) 1947</div>
+          <div class="option">C) 1948</div>
+        </div>
+
+        <div class="question">
+          <p>Domanda 2</p>
+          <div class="option">Chi è il Presidente della Repubblica secondo la Costituzione?</div>
+          <div class="option">A) Capo del Governo</div>
+          <div class="option">B) Garante della Costituzione</div>
+          <div class="option">C) Capo del Parlamento</div>
+        </div>
+
+        <div class="question">
+          <p>Domanda 3</p>
+          <div class="option">Quale articolo garantisce l’uguaglianza dei cittadini?</div>
+          <div class="option">A) Art. 2</div>
+          <div class="option">B) Art. 3</div>
+          <div class="option">C) Art. 4</div>
+        </div>
+
+        <div class="quiz-buttons">
+          <button onclick="location.reload()">Rigenera Domande</button>
+          <button onclick="restoreForm()">Indietro</button>
+          <button onclick="alert('Quiz salvato!')">Salva Quiz</button>
+        </div>
+      `;
+    });
+  }
+
+  function restoreForm() {
+    const mainBox = document.getElementById('main-box');
+    mainBox.innerHTML = formBackup;
+    attachSubmitHandler();
+  }
+
+  attachSubmitHandler();
+</script>
+
+</body>
+</html>
