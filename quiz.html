@@ -182,11 +182,11 @@
         const quizDuration = 60 * 60;
 
         // Recupera ora inizio quiz da localStorage oppure la imposta ora corrente
-        let quizStartTime = localStorage.getItem('quizStartTime');
-        if (!quizStartTime) {
-            quizStartTime = Date.now();
-            localStorage.setItem('quizStartTime', quizStartTime);
-        }
+            let quizStartTime = Number(localStorage.getItem('quizStartTime'));
+            if (!quizStartTime) {
+                quizStartTime = Date.now();
+                localStorage.setItem('quizStartTime', quizStartTime.toString());
+            }
 
         // Calcola tempo rimanente
         function calculateRemainingTime() {
@@ -218,7 +218,7 @@
             event.preventDefault();
             showModal('Hai ottenuto un punteggio dell\'80%. Risposte esatte 4/5.');
         });
-
+localStorage.removeItem('quizStartTime');
         async function submitQuiz() {
     // Prendi dati del form
     const formData = new FormData(quizForm);
