@@ -21,10 +21,13 @@
       padding: 30px;
       border-radius: 12px;
       border: 1px solid #ddd;
-      min-height: 100%;
+      min-height: 95%;
       width: 100%;
       max-width: 92%;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .quiz-wrapper h1 {
       margin-top: 0;
@@ -59,6 +62,20 @@
     }
     .quiz-actions a {
       text-decoration: none;
+    }
+    .back-button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      background-color: black;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: auto;
+      align-self: flex-start;
+    }
+    .back-button:hover {
+      background-color: #333;
     }
   </style>
 </head>
@@ -104,8 +121,11 @@
 <main class="main-container">
   <div class="quiz-container">
     <div class="quiz-wrapper">
-      <h1>Quiz precedentemente generati</h1>
-      <div id="quiz-list-container"></div>
+      <div>
+        <h1>Quiz precedentemente generati</h1>
+        <div id="quiz-list-container"></div>
+      </div>
+      <a href="classeDocente.html" class="back-button">Indietro</a>
     </div>
   </div>
 
