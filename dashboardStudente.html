@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDUCIVICA DASHBOARD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styleDashboardDoc.css">
+    <link rel="stylesheet" href="css/styleHeader.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="dashboardDocente.html">
+                    <img src="EDUCIVICA.jpg" width="16%">
+                </a>
+            </div>
+            <nav class="navigation">
+                <a href="errore.html" class="nav-link"><i class="fas fa-user"></i><br><span>Profilo</span></a>
+                <a href="dashboardDocente.html" class="nav-link active"><i class="fas fa-cubes"></i><br><span>Dashboard</span></a>
+                <a href="errore.html" class="nav-link"><i class="fas fa-bell"></i><br><span>Notifiche</span></a>
+                <a href="errore.html" class="nav-link"><i class="fas fa-comments"></i><br><span>Chat</span></a>
+            </nav>
+            <div class="user-info">
+                <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+                <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+                    <button type="submit" class="logout-button">
+                        <i class="fa-solid fa-person-walking-luggage"></i><br><span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENUTO DELLA DASHBOARD -->
+    <div class="main-content">
+        <div class="dashboard">
+            <!-- Punteggio Personale -->
+            <div class="box">
+                <h2>Punteggio Personale</h2>
+                <ul>
+                    <li>Quiz: <span id="punteggioQuiz">Caricamento...</span></li>
+                    <li>Scenari Virtuali: <span id="punteggioScenario">Caricamento...</span></li>
+                </ul>
+            </div>
+
+            <!-- Classifica della classe -->
+            <div class="box tall-box half-width">
+                <h2>Classifica della Classe</h2>
+                <ul id="classificaList">
+                    <li>Caricamento classifica...</li>
+                </ul>
+            </div>
+
+            <!-- Storico Personale -->
+            <div class="box tall-box">
+                <h2>Storico Personale</h2>
+                <ul id="storicoList">
+                    <li>Caricamento storico...</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+             <div class="sidebar-item">
+      <a href="materialeStudente.html">
+        <i class="fas fa-circle-plus"></i><br>
+        <span>Materiale Didattico</span>
+      </a>
+    </div>
+            <div class="sidebar-item">
+                <a href="classeDocente.html?id=1">
+                    <i class="fa-solid fa-users-rectangle"></i><br>
+                    <span>Visualizzazione Classe</span>
+                </a>
+            </div>
+            <br>
+            <div class="sidebar-item">
+                <a href="quizDisponibile.html">
+                    <i class="fas fa-question-circle"></i><br>
+                    <span>Quiz</span>
+                </a>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Dati finti (simulazione)
+        const punteggio_quiz = 85;
+        const punteggio_scenario = 70;
+
+        const classifica = [
+            { nome: "Anna", cognome: "Rossi", punteggio_totale: 150 },
+            { nome: "Luca", cognome: "Bianchi", punteggio_totale: 140 },
+            { nome: "Maria", cognome: "Verdi", punteggio_totale: 120 }
+        ];
+
+        const storico = [
+            {
+                descrizione_attivita: "Quiz Educazione Civica",
+                punteggio_attivita: 30,
+                data_attivita: "2025-07-20"
+            },
+            {
+                descrizione_attivita: "Scenario Interattivo",
+                punteggio_attivita: 40,
+                data_attivita: "2025-07-15"
+            }
+        ];
+
+        // Inserimento punteggi personali
+        document.getElementById("punteggioQuiz").textContent = punteggio_quiz || "Nessun punteggio";
+        document.getElementById("punteggioScenario").textContent = punteggio_scenario || "Nessun punteggio";
+
+        // Classifica
+        const classificaList = document.getElementById("classificaList");
+        classificaList.innerHTML = "";
+        if (classifica.length > 0) {
+            classifica.forEach((studente, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `${index + 1}. ${studente.nome} ${studente.cognome} <span>${studente.punteggio_totale}</span>`;
+                classificaList.appendChild(li);
+            });
+        } else {
+            classificaList.innerHTML = "<li><p>Nessuna classifica disponibile.</p></li>";
+        }
+
+        // Storico
+        const storicoList = document.getElementById("storicoList");
+        storicoList.innerHTML = "";
+        if (storico.length > 0) {
+            storico.forEach(attivita => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+            <div>
+              <p><strong>${attivita.descrizione_attivita}</strong></p>
+              <p><strong>Punteggio: </strong>${attivita.punteggio_attivita}</p>
+              <p><em>${attivita.data_attivita}</em></p>
+            </div>
+          `;
+                storicoList.appendChild(li);
+            });
+        } else {
+            storicoList.innerHTML = "<li><p>Nessuna attività trovata.</p></li>";
+        }
+
+        // Imposta nome utente dinamico
+        const nomeUtente = "Mario";
+        document.getElementById("username").textContent = nomeUtente;
+    </script>
+
+</body>
+</html>

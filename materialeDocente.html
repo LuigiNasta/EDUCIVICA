@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Educivica materiale docente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styleMateriale.css">
+  <link rel="stylesheet" href="css/styleHeader.css">
+  <link rel="stylesheet" href="css/styleDashboardDoc.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboardDocente.html">
+          <img src="EDUCIVICA.jpg" width="16%" alt="Logo Educivica" />
+        </a>
+      </div>
+      <nav class="navigation">
+        <a href="errore.html" class="nav-link">
+          <i class="fas fa-user"></i><br>
+          <span>Profilo</span>
+        </a>
+        <a href="dashboardDocente.html" class="nav-link active">
+          <i class="fas fa-cubes"></i><br>
+          <span>Dashboard</span>
+        </a>
+        <a href="errore.html" class="nav-link">
+          <i class="fas fa-bell"></i><br>
+          <span>Notifiche</span>
+        </a>
+        <a href="errore.html" class="nav-link">
+          <i class="fas fa-comments"></i><br>
+          <span>Chat</span>
+        </a>
+      </nav>
+      <div class="user-info">
+        <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+        <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+          <button type="submit" class="logout-button">
+            <i class="fa-solid fa-person-walking-luggage"></i><br>
+            <span>Logout</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="dashboard">
+      <h2>MATERIALE DIDATTICO</h2>
+      <div id="toast-container"></div>
+
+      <div class="materiali-lista">
+        <div class="materiale-item">
+          <h3>Costituzione Italiana</h3>
+          <p>Descrizione del materiale didattico.</p>
+          <p><strong>Tipo:</strong> pdf</p>
+          <div class="azioni">
+            <a class="collegamenti" href="files/materiale1.pdf" target="_blank"><i class="fa-solid fa-folder-open"></i></a>
+            <a class="collegamenti" href="modifica_materiale.html"><i class="fa-solid fa-file-signature"></i></a>
+            <a class="collegamenti" href="elimina_materiale.html" onclick="return confirm('Sei sicuro di voler eliminare questo materiale?');"><i class="fa-solid fa-file-circle-minus"></i></a>
+          </div>
+        </div>
+
+        <div class="materiale-item">
+          <h3>Repubblica Italiana</h3>
+          <p>Descrizione del materiale</p>
+          <p><strong>Tipo:</strong> pdf</p>
+          <div class="azioni">
+            <a href="files/materiale_esempio.pdf" target="_blank"><i class="fa-solid fa-folder-open"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="aggiungi-materiale" style="margin-top: 40px;">
+        <a class="collegamenti" href="caricamentoMateriale.html">
+          <i class="fa-solid fa-file-arrow-up"></i> Aggiungi Materiale Didattico
+        </a>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <div class="sidebar-item">
+        <a href="materialeDocente.html">
+          <i class="fas fa-circle-plus"></i><br>
+          <span>Materiale Didattico</span>
+        </a>
+      </div>
+      <div class="sidebar-item">
+        <a href="creazione_classe.html">
+          <i class="fas fa-circle-plus"></i><br>
+          <span>Crea Classe Virtuale</span>
+        </a>
+      </div>
+      <br>
+      <div class="sidebar-item">
+        <a href="quizDisponibile.html">
+          <i class="fas fa-question-circle"></i><br>
+          <span>Quiz</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+</body>
+</html>
