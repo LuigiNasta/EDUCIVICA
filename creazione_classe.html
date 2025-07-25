@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Creazione Classe Virtuale</title>
+    <link rel="stylesheet" href="css/styleClasseVirtuale.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+   
+    <link rel="stylesheet" href="css/styleHeader.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="dashboardDocente.html">
+                    <img src="EDUCIVICA.jpg" width="16%">
+                </a>
+            </div>
+            <nav class="navigation">
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-user"></i><br>
+                    <span>Profilo</span>
+                </a>
+                <a href="#" id="dashboard-link" class="nav-link active">
+                    <i class="fas fa-cubes"></i><br>
+                    <span>Dashboard</span>
+                </a>
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-bell"></i><br>
+                    <span>Notifiche</span>
+                </a>
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-comments"></i><br>
+                    <span>Chat</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+                <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+                    <button type="submit" class="logout-button">
+                        <i class="fa-solid fa-person-walking-luggage"></i><br>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+
+        <!-- Contenuto principale -->
+        <main>
+            <div class="form-container">
+                <h1>Creazione classe virtuale</h1>
+
+                <form action="{{ url_for('creazioneclasse.creazione_classe') }}" method="POST">
+                    <label for="nome-classe">Nome Classe</label>
+                    <input type="text" id="nome-classe" name="nome-classe" required>
+
+                    <label for="descrizione">Descrizione</label>
+                    <textarea id="descrizione" name="descrizione" rows="5" required></textarea>
+
+                    <!-- Pulsante per annullare -->
+                    <button type="button" class="annulla"
+                            onclick="window.location.href='{{ url_for('dashboard.dashboard_docente') }}'">
+                        Annulla
+                    </button>
+
+                    <!-- Pulsante per salvare -->
+                    <button type="submit" class="annulla">Salva</button>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>
