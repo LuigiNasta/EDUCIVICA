@@ -9,32 +9,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
   <style>
+    .main-container {
+      display: flex;
+      height: calc(100vh - 100px);
+    }
+
     .quiz-container {
-      padding-right: 15px;
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      overflow: hidden;
+      padding-right: 15px;
     }
+
     .quiz-wrapper {
       background-color: #fff;
       padding: 30px;
       border-radius: 12px;
       border: 1px solid #ddd;
-      min-height: 95%;
-      width: 100%;
+      width: 95%;
       max-width: 92%;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      height: 95%;
     }
+
+    .quiz-content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
     .quiz-wrapper h1 {
       margin-top: 0;
       margin-bottom: 24px;
       font-size: 24px;
       text-align: left;
     }
+
     .quiz-item {
       border: 1px solid #ccc;
       border-radius: 10px;
@@ -45,9 +59,11 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .quiz-details p {
       margin: 4px 0;
     }
+
     .quiz-actions button {
       margin-left: 10px;
       padding: 6px 14px;
@@ -57,12 +73,15 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     .quiz-actions button:hover {
       background-color: #f0f0f0;
     }
+
     .quiz-actions a {
       text-decoration: none;
     }
+
     .back-button {
       padding: 8px 16px;
       border-radius: 6px;
@@ -70,10 +89,9 @@
       color: white;
       font-weight: bold;
       text-decoration: none;
-      display: inline-block;
-      margin-top: auto;
       align-self: flex-start;
     }
+
     .back-button:hover {
       background-color: #333;
     }
@@ -121,7 +139,7 @@
 <main class="main-container">
   <div class="quiz-container">
     <div class="quiz-wrapper">
-      <div>
+      <div class="quiz-content-scroll">
         <h1>Quiz precedentemente generati</h1>
         <div id="quiz-list-container"></div>
       </div>
@@ -140,12 +158,16 @@
 </main>
 
 <script>
-  const quizList = [
+  const container = document.getElementById("quiz-list-container");
+
+  const defaultQuizList = [
     { id_quiz: 101, titolo: "Costituzione Italiana - Primo Quiz", argomento: "Costituzione Italiana", n_domande: 5 },
-    { id_quiz: 102, titolo: "Costituzione Italiana - Primo Quiz", argomento: "Costituzione Italiana", n_domande: 5 }
+    { id_quiz: 102, titolo: "Costituzione Italiana - Secondo Quiz", argomento: "Costituzione Italiana", n_domande: 5 }
   ];
 
-  const container = document.getElementById("quiz-list-container");
+  const savedQuizList = JSON.parse(localStorage.getItem("quizList") || "[]");
+
+  const quizList = [...defaultQuizList, ...savedQuizList];
 
   if (quizList.length === 0) {
     container.innerHTML = "<p>Nessun quiz trovato per questa classe.</p>";

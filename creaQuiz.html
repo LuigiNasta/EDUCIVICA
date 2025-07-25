@@ -183,6 +183,37 @@
 
 <script>
   let formBackup;
+  const domandeSets = [
+    [
+      { testo: "Quando è stata promulgata la Costituzione Italiana?", opzioni: ["1946", "1947", "1948"] },
+      { testo: "Chi è il Presidente della Repubblica secondo la Costituzione?", opzioni: ["Capo del Governo", "Garante della Costituzione", "Capo del Parlamento"] },
+      { testo: "Quale articolo garantisce l’uguaglianza dei cittadini?", opzioni: ["Art. 2", "Art. 3", "Art. 4"] }
+    ],
+    [
+      { testo: "Quante sono le parti fondamentali della Costituzione Italiana?", opzioni: ["Due", "Tre", "Quattro"] },
+      { testo: "In quale anno è entrata in vigore la Costituzione?", opzioni: ["1946", "1948", "1950"] },
+      { testo: "Qual è la funzione della Corte Costituzionale?", opzioni: ["Controllo delle leggi", "Approvazione del bilancio", "Nomina del Presidente"] }
+    ],
+    [
+      { testo: "Chi elegge il Presidente della Repubblica?", opzioni: ["Il popolo", "Il Parlamento in seduta comune", "La Camera dei Deputati"] },
+      { testo: "Quanto dura in carica il Presidente della Repubblica?", opzioni: ["5 anni", "6 anni", "7 anni"] },
+      { testo: "Cosa afferma l'art. 1 della Costituzione?", opzioni: ["L'Italia è una monarchia costituzionale", "La sovranità appartiene al popolo", "Il potere esecutivo è del re"] }
+    ]
+  ];
+
+  let currentSetIndex = 0;
+
+  function generateDomandeHTML() {
+    const domande = domandeSets[currentSetIndex % domandeSets.length];
+    currentSetIndex++;
+    return domande.map((d, i) => `
+      <div class="question">
+        <p>Domanda ${i + 1}</p>
+        <div class="option">${d.testo}</div>
+        ${d.opzioni.map(opt => `<div class="option">${opt}</div>`).join('')}
+      </div>
+    `).join('');
+  }
 
   function attachSubmitHandler() {
     const form = document.getElementById('quiz-form');
@@ -191,42 +222,47 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
+      const titolo = document.getElementById('titolo').value;
+      const argomento = document.getElementById('argomento').value;
+      const n_domande = document.getElementById('n_domande').value;
+
       formBackup = document.getElementById('main-box').innerHTML;
 
       document.getElementById('main-box').innerHTML = `
         <h2>Domande Generate</h2>
-
-        <div class="question">
-          <p>Domanda 1</p>
-          <div class="option">Quando è stata promulgata la Costituzione Italiana?</div>
-          <div class="option">A) 1946</div>
-          <div class="option">B) 1947</div>
-          <div class="option">C) 1948</div>
-        </div>
-
-        <div class="question">
-          <p>Domanda 2</p>
-          <div class="option">Chi è il Presidente della Repubblica secondo la Costituzione?</div>
-          <div class="option">A) Capo del Governo</div>
-          <div class="option">B) Garante della Costituzione</div>
-          <div class="option">C) Capo del Parlamento</div>
-        </div>
-
-        <div class="question">
-          <p>Domanda 3</p>
-          <div class="option">Quale articolo garantisce l’uguaglianza dei cittadini?</div>
-          <div class="option">A) Art. 2</div>
-          <div class="option">B) Art. 3</div>
-          <div class="option">C) Art. 4</div>
-        </div>
-
+        ${generateDomandeHTML()}
         <div class="quiz-buttons">
-          <button onclick="location.reload()">Rigenera Domande</button>
+          <button onclick="regenera()">Rigenera Domande</button>
           <button onclick="restoreForm()">Indietro</button>
-          <button onclick="alert('Quiz salvato!')">Salva Quiz</button>
+          <button onclick="salvaQuiz('${titolo}', '${argomento}', ${n_domande})">Salva Quiz</button>
         </div>
       `;
     });
+  }
+
+  function regenera() {
+    const domandeHtml = generateDomandeHTML();
+    const btns = document.querySelector('.quiz-buttons').outerHTML;
+    document.getElementById('main-box').innerHTML = `
+      <h2>Domande Generate</h2>
+      ${domandeHtml}
+      ${btns}
+    `;
+  }
+
+  function salvaQuiz(titolo, argomento, n_domande) {
+    const newQuiz = {
+      id_quiz: Math.floor(Math.random() * 1000) + 100,
+      titolo,
+      argomento,
+      n_domande
+    };
+
+    const quizList = JSON.parse(localStorage.getItem('quizList') || '[]');
+    quizList.push(newQuiz);
+    localStorage.setItem('quizList', JSON.stringify(quizList));
+
+    window.location.href = 'quizPrecedenti.html';
   }
 
   function restoreForm() {
