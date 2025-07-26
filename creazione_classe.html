@@ -49,28 +49,42 @@
     </header>
 
 
-        <!-- Contenuto principale -->
-        <main>
-            <div class="form-container">
-                <h1>Creazione classe virtuale</h1>
+    <!-- Contenuto principale -->
+    <main>
+        <div class="form-container">
+            <h1>Creazione classe virtuale</h1>
 
-                <form action="{{ url_for('creazioneclasse.creazione_classe') }}" method="POST">
-                    <label for="nome-classe">Nome Classe</label>
-                    <input type="text" id="nome-classe" name="nome-classe" required>
+            <form id="crea-classe-form">
+                <label for="nome-classe">Nome Classe</label>
+                <input type="text" id="nome-classe" name="nome-classe" required>
 
-                    <label for="descrizione">Descrizione</label>
-                    <textarea id="descrizione" name="descrizione" rows="5" required></textarea>
+                <label for="descrizione">Descrizione</label>
+                <textarea id="descrizione" name="descrizione" rows="5" required></textarea>
 
-                    <!-- Pulsante per annullare -->
-                    <button type="button" class="annulla"
-                            onclick="window.location.href='dashboardDocente.html'">
-                        Annulla
-                    </button>
+                <!-- Pulsante per annullare -->
+                <button type="button" class="annulla"
+                        onclick="window.location.href='dashboardDocente.html'">
+                    Annulla
+                </button>
 
-                    <!-- Pulsante per salvare -->
-                    <button type="submit" class="annulla">Salva</button>
-                </form>
-            </div>
-        </main>
-    </body>
+                <!-- Pulsante per salvare -->
+                <button type="submit" class="annulla">Salva</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('crea-classe-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Blocca l'invio automatico del form
+
+            // Mostra il popup
+            alert('Classe creata');
+
+            // Dopo il popup, reindirizza a dashboardDocente.html
+            window.location.href = 'dashBoardDocente.html';
+        });
+    </script>
+
+
+</body>
 </html>
