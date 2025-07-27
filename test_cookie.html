@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salva Cookie</title>
+</head>
+<body>
+
+    <h1>Salvataggio Cookie</h1>
+
+    <button onclick="salvaCookie()">Salva Cookie</button>
+    <button onclick="leggiCookie()">Leggi Cookie</button>
+
+    <script>
+  function salvaCookie() {
+    // Imposta un cookie chiamato "username" con valore "Mario" che scade in 7 giorni
+    const d = new Date();
+    d.setTime(d.getTime() + (7 * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = "username=Mario; " + expires + "; path=/";
+    alert("Cookie salvato!");
+  }
+
+  function leggiCookie() {
+    alert("Cookie attuale: " + document.cookie);
+  }
+    </script>
+
+</body>
+</html>

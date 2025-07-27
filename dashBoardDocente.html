@@ -1,110 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>EDUCIVICA DASHBOARD</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styleDashboardDoc.css">
-  <link rel="stylesheet" href="css/styleHeader.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>EDUCIVICA DASHBOARD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styleDashboardDoc.css">
+    <link rel="stylesheet" href="css/styleHeader.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
-<!-- HEADER statico incluso direttamente -->
-<header class="main-header">
-  <div class="container">
-    <div class="logo">
-      <a href="dashboardDocente.html">
-        <img src="EDUCIVICA.jpg" width="16%">
-      </a>
-    </div>
-    <nav class="navigation">
-      <a href="errore.html" class="nav-link">
-        <i class="fas fa-user"></i><br>
-        <span>Profilo</span>
-      </a>
-      <a href="dashboardDocente.html" class="nav-link active">
-        <i class="fas fa-cubes"></i><br>
-        <span>Dashboard</span>
-      </a>
-      <a href="notifiche.html" class="nav-link">
-        <i class="fas fa-bell"></i><br>
-        <span>Notifiche</span>
-      </a>
-      <a href="errore.html" class="nav-link">
-        <i class="fas fa-comments"></i><br>
-        <span>Chat</span>
-      </a>
-    </nav>
-    <div class="user-info">
-      <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
-      <form action="registrazioneLogin.html" method="POST" style="display:inline;">
-        <button type="submit" class="logout-button">
-          <i class="fa-solid fa-person-walking-luggage"></i><br>
-          <span>Logout</span>
-        </button>
-      </form>
-    </div>
-  </div>
-</header>
+    <!-- HEADER statico incluso direttamente -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="dashboardDocente.html">
+                    <img src="EDUCIVICA.jpg" width="16%">
+                </a>
+            </div>
+            <nav class="navigation">
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-user"></i><br>
+                    <span>Profilo</span>
+                </a>
+                <a href="dashboardDocente.html" class="nav-link active">
+                    <i class="fas fa-cubes"></i><br>
+                    <span>Dashboard</span>
+                </a>
+                <a href="notifiche.html" class="nav-link">
+                    <i class="fas fa-bell"></i><br>
+                    <span>Notifiche</span>
+                </a>
+                <a href="errore.html" class="nav-link">
+                    <i class="fas fa-comments"></i><br>
+                    <span>Chat</span>
+                </a>
+            </nav>
+            <div class="user-info">
+                <span style="font-size: 1.2rem;">Ciao, <strong id="username">Mario</strong></span>
+                <form action="registrazioneLogin.html" method="POST" style="display:inline;">
+                    <button type="submit" class="logout-button">
+                        <i class="fa-solid fa-person-walking-luggage"></i><br>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
 
-<!-- CONTENUTO DELLA DASHBOARD -->
-<div class="main-content">
-  <div class="dashboard">
-    <h2>Classifica di tutte le classi</h2>
-    <ul id="lista-classi">
-      <!-- Popolato da JavaScript -->
-    </ul>
-  </div>
+    <!-- CONTENUTO DELLA DASHBOARD -->
+    <div class="main-content">
+        <div class="dashboard">
+            <h2>Classifica di tutte le classi</h2>
+            <ul id="lista-classi">
+                <!-- Popolato da JavaScript -->
+            </ul>
+        </div>
 
-          <!-- Sidebar -->
+        <!-- Sidebar -->
         <aside class="sidebar">
-           
-         <div class="sidebar-item">
-      <a href="creazione_classe.html">
-        <i class="fas fa-circle-plus"></i><br>
-        <span>Crea Classe Virtuale</span>
-      </a>
+            <div class="sidebar-item">
+                <a href="creazione_classe.html">
+                    <i class="fas fa-circle-plus"></i><br>
+                    <span>Crea Classe Virtuale</span>
+                </a>
+            </div>
+        </aside>
     </div>
-</div>
 
-<script>
-  const classi = [
-    { id_classe: 1, nome_classe: "1A", punteggio_totale: 120 },
-    { id_classe: 2, nome_classe: "2B", punteggio_totale: 95 },
-    { id_classe: 3, nome_classe: "3C", punteggio_totale: 110 },
-  ];
+    <script>
+        // Array iniziale delle classi
+        const classi = [
+            { id_classe: 1, nome_classe: "1A", punteggio_totale: 120 },
+            { id_classe: 2, nome_classe: "2B", punteggio_totale: 95 },
+            { id_classe: 3, nome_classe: "3C", punteggio_totale: 110 },
+        ];
 
-  const listaClassi = document.getElementById('lista-classi');
+        // Mostra i cookie attuali
+        alert("Cookies attuali: " + document.cookie);
 
-  classi.forEach(classe => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <strong>${classe.nome_classe} - Punteggio Totale: ${classe.punteggio_totale}</strong>
-      <span>
-        <a class="pulsante" href="errore.html">
-          <button class="bottone">Classifica classe</button>
-        </a>
-        <button class="bottone gestione-classe-btn" data-id="${classe.id_classe}">Gestione classe</button>
-      </span>
-    `;
-    listaClassi.appendChild(li);
-  });
+        // Funzione per ottenere il valore di un cookie
+        function getCookieValue(name) {
+            const cookies = document.cookie.split('; ');
+            for (let i = 0; i < cookies.length; i++) {
+                const [key, value] = cookies[i].split('=');
+                if (key === name) {
+                    return decodeURIComponent(value);
+                }
+            }
+            return null;
+        }
 
-  // Gestione click su "Gestione classe" in base a tipo utente
-  document.querySelectorAll('.gestione-classe-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-      const tipo = localStorage.getItem('tipo');
-      const id = this.getAttribute('data-id');
-      const destinazione = tipo === 'docente' ? 'classeDocente.html' : 'classeStudente.html';
-      window.location.href = `${destinazione}?id=${id}`;
-    });
-  });
+        // Recupera i cookie e, se presenti, aggiunge una nuova classe
+        const nomeClasse = getCookieValue('nomeClasse');
+        
 
-  // Nome utente dinamico (opzionale)
-  const nomeUtente = "Mario";
-  document.getElementById("username").textContent = nomeUtente;
-</script>
+        if (nomeClasse) {
+            classi.push({
+                id_classe: 4,
+                nome_classe: nomeClasse,
+                punteggio_totale: 0
+            });
+
+            // Cancella i cookie dopo l'uso
+            document.cookie = "nomeClasse=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "descrizioneClasse=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        // Stampa le classi nella pagina
+        const listaClassi = document.getElementById('lista-classi');
+
+        classi.forEach(classe => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                    <strong>${classe.nome_classe} - Punteggio Totale: ${classe.punteggio_totale}</strong>
+                    <span>
+                        <a class="pulsante" href="errore.html">
+                            <button class="bottone">Classifica classe</button>
+                        </a>
+                        <button class="bottone gestione-classe-btn" data-id="${classe.id_classe}">Gestione classe</button>
+                    </span>
+                `;
+            listaClassi.appendChild(li);
+        });
+
+        // Gestione click su "Gestione classe"
+        document.querySelectorAll('.gestione-classe-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const tipo = localStorage.getItem('tipo');
+                const id = this.getAttribute('data-id');
+                const destinazione = tipo === 'docente' ? 'classeDocente.html' : 'classeStudente.html';
+                window.location.href = `${destinazione}?id=${id}`;
+            });
+        });
+
+        // Nome utente dinamico
+        const nomeUtente = "Mario";
+        document.getElementById("username").textContent = nomeUtente;
+    </script>
 
 </body>
 </html>

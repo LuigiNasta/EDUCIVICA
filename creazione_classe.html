@@ -74,14 +74,26 @@
     </main>
 
     <script>
+           
         document.getElementById('crea-classe-form').addEventListener('submit', function (e) {
-            e.preventDefault(); // Blocca l'invio automatico del form
+            e.preventDefault(); // Blocca invio
 
-            // Mostra il popup
+            const nomeClasse = document.getElementById('nome-classe').value;
+            const descrizione = document.getElementById('descrizione').value;
+
+            // Salva in un cookie (scadenza 1 giorno)
+            document.cookie = `nomeClasse=${encodeURIComponent(nomeClasse)}; path=/; max-age=86400`;
+            document.cookie = `descrizioneClasse=${encodeURIComponent(descrizione)}; path=/; max-age=86400`;
+
+            // Mostra alert
             alert('Classe creata');
 
-            // Dopo il popup, reindirizza a dashboardDocente.html
-            window.location.href = 'dashBoardDocente.html';
+            // Reindirizza alla dashboard
+            window.location.href = 'dashboardDocente.html';
+
+            alert(document.cookie);
+
+
         });
     </script>
 
