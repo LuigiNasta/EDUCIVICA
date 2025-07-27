@@ -85,6 +85,48 @@
         </a>
       </div>
     </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.materiali-lista');
+    const materiali = JSON.parse(localStorage.getItem('materiali')) || [];
+
+    if (materiali.length === 0) return;
+
+    materiali.forEach((m, index) => {
+        const div = document.createElement('div');
+        div.className = 'materiale-item';
+
+        div.innerHTML = `
+            <h3>${m.titolo}</h3>
+            <p>${m.descrizione}</p>
+            <p><strong>Tipo:</strong> ${m.tipo}</p>
+            <div class="azioni">
+                <a href="${m.fileData}" target="_blank" download="${m.fileName}" class="collegamenti"><i class="fa-solid fa-folder-open"></i></a>
+                <a href="#" onclick="modificaMateriale(${index})" class="collegamenti"><i class="fa-solid fa-file-signature"></i></a>
+                <a href="#" onclick="eliminaMateriale(${index})" class="collegamenti"><i class="fa-solid fa-file-circle-minus"></i></a>
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
+});
+
+// Funzione per eliminare
+function eliminaMateriale(index) {
+    if (confirm('Sei sicuro di voler eliminare questo materiale?')) {
+        const materiali = JSON.parse(localStorage.getItem('materiali')) || [];
+        materiali.splice(index, 1);
+        localStorage.setItem('materiali', JSON.stringify(materiali));
+        location.reload();
+    }
+}
+
+// (Opzionale) funzione per modifica futura
+function modificaMateriale(index) {
+    alert('Funzionalità di modifica non ancora implementata.');
+}
+</script>
+
 
     <aside class="sidebar">
       <div class="sidebar-item">

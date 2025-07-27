@@ -71,9 +71,44 @@
 <script>
 document.getElementById('formMateriale').addEventListener('submit', function(e) {
     e.preventDefault();
-    window.location.href = "materialeDocente.html?success=1";
+
+    // Prendi i valori del form
+    const titolo = document.getElementById('titolo').value.trim();
+    const descrizione = document.getElementById('descrizione').value.trim();
+    const tipo = document.getElementById('tipo').value;
+    const fileInput = document.getElementById('file');
+    const file = fileInput.files[0];
+
+    if (!titolo || !descrizione || !tipo || !file) {
+        alert('Compila tutti i campi prima di caricare.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const materiale = {
+            titolo,
+            descrizione,
+            tipo,
+            fileName: file.name,
+            fileData: event.target.result // base64 del file
+        };
+
+        // Recupera materiali esistenti o array vuoto
+        const materiali = JSON.parse(localStorage.getItem('materiali')) || [];
+
+        materiali.push(materiale);
+
+        localStorage.setItem('materiali', JSON.stringify(materiali));
+
+        // Reindirizza alla pagina dei materiali
+        window.location.href = "materialeDocente.html?success=1";
+    };
+
+    reader.readAsDataURL(file); // converte il file in base64
 });
 </script>
+
 
 </body>
 </html>
