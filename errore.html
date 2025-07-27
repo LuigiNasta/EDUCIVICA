@@ -128,17 +128,19 @@
 </footer>
 
 <script>
-  // Simulazione del ruolo (puoi sostituirlo con localStorage o un check reale)
-  const ruoloUtente = "docente"; // Cambia in "studente" se serve
-
   const bottone = document.getElementById("dashboard-btn");
+
   bottone.addEventListener("click", function () {
+    const ruoloUtente = localStorage.getItem("tipo");
+
     if (ruoloUtente === "docente") {
-      window.location.href = "dashBoardDocente.html";
+      window.location.href = "dashboardDocente.html";
     } else {
-      window.location.href = "dashboard_studente.html";
+      window.location.href = "dashboardStudente.html";
     }
   });
+</script>
+
 </script>
 
 </body>
