@@ -14,37 +14,59 @@
     }
 
     .container {
-      width: 1000px; height: 600px;
+      width: 1000px;
+      height: 600px;
       margin: 40px auto;
-      position: relative; overflow: hidden;
-      display: flex; background: #fff;
+      position: relative;
+      background: #fff;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
     }
 
-    .form-login, .form-register {
-      width: 50%; padding: 40px;
-      box-sizing: border-box;
+    .slide-box {
+      display: flex;
+      width: 200%;
+      height: 100%;
       transition: transform 0.6s ease-in-out;
     }
-    .form-register {
-      position: absolute;
-      top: 0; right: -50%;
-      opacity: 0; pointer-events: none;
-    }
-    .form-register.active {
-      transform: translateX(-100%);
-      opacity: 1; pointer-events: all;
+
+    .container.show-register .slide-box {
+      transform: translateX(-0%);
     }
 
-    .image-panel {
-      width: 50%; background: url('6.png') center/cover no-repeat;
-      position: relative; transition: transform 0.6s ease-in-out;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: flex-end;
-      padding: 30px; text-align: center;
+    .form-login {
+      width: 50%;
+      padding-right: 60px;
+      box-sizing: border-box;
+      background: #fff;
     }
-    .image-panel.active {
-      transform: translateX(-100%);
+    .form-register{
+      width: 50%;
+      padding: 70px;
+      box-sizing: border-box;
+      background: #fff;
+    }
+
+    .register-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('6.png') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 30px;
+      text-align: center;
+      z-index: 1;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .container.show-register .register-panel {
+      transform: translateX(-80%);
     }
 
     .overlay h2 {
@@ -60,15 +82,41 @@
       margin-bottom: 20px;
     }
 
-    input {
-      width: 100%; padding: 12px; margin: 8px 0;
-      border: 1px solid #ccc; border-radius: 4px;
+    .overlay .btn-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
 
-    .password-container { position: relative; }
+    .form-register {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .form-register form {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
     .password-container i {
       position: absolute;
-      top: 50%; right: 12px;
+      top: 50%;
+      right: 12px;
       transform: translateY(-50%);
       cursor: pointer;
     }
@@ -83,46 +131,59 @@
       margin-top: 10px;
       border-radius: 5px;
     }
-    button:hover { background: #b94b32; }
+
+    button:hover {
+      background: #b94b32;
+    }
   </style>
 </head>
 <body>
 
 <div class="container" id="container">
-  <div class="form-login">
-    <form id="loginForm">
-      <h1>ACCEDI</h1>
-      <input type="text" id="login-email" placeholder="Email" required>
-      <div class="password-container">
-        <input type="password" id="login-password" placeholder="Password" required>
-        <i class="fas fa-eye" onclick="togglePassword('login-password')"></i>
-      </div>
-      <button type="submit">ACCEDI</button>
-    </form>
+  <div class="slide-box" id="slide-box">
+    <div class="form-login">
+      <form id="loginForm">
+        <h1>ACCEDI</h1>
+        <input type="text" id="login-email" placeholder="Email" required>
+        <div class="password-container">
+          <input type="password" id="login-password" placeholder="Password" required>
+          <i class="fas fa-eye" onclick="togglePassword('login-password')"></i>
+        </div>
+        <button type="submit">ACCEDI</button>
+      </form>
+    </div>
+
+    <div class="form-register" id="form-register">
+      <form id="registrazioneForm">
+        <h1>REGISTRAZIONE</h1>
+        <input type="text" id="nome" placeholder="Nome" required>
+        <input type="text" id="cognome" placeholder="Cognome" required>
+        <input type="text" id="sda" placeholder="Scuola" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="cf" placeholder="Codice Fiscale" required>
+        <input type="date" id="data-nascita" required>
+        <div class="password-container">
+          <input type="password" id="password" placeholder="Password" required>
+          <i class="fas fa-eye" onclick="togglePassword('password')"></i>
+        </div>
+        <div id="campo-codice-univoco" style="display: none">
+          <input type="text" id="cu" placeholder="Codice Univoco">
+        </div>
+        <input type="hidden" id="tipo-utente">
+        <button type="submit">INVIA</button>
+        <button type="button" onclick="tornaIndietro()">INDIETRO</button>
+      </form>
+    </div>
   </div>
 
-  <div class="form-register" id="form-register">
-    <form id="registrazioneForm">
-      <h1>REGISTRATI</h1>
-      <input type="text" id="nome" placeholder="Nome" required>
-      <input type="text" id="cognome" placeholder="Cognome" required>
-      <input type="text" id="sda" placeholder="Scuola" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="text" id="cf" placeholder="Codice Fiscale" required>
-      <input type="date" id="data-nascita" required>
-      <div class="password-container">
-        <input type="password" id="password" placeholder="Password" required>
-        <i class="fas fa-eye" onclick="togglePassword('password')"></i>
-      </div>
-      <input type="text" id="cu" placeholder="Codice Univoco" required>
-      <button type="submit">INVIA</button>
-    </form>
-  </div>
-
-  <div class="image-panel" id="image-panel">
-    <div class="overlay" id="overlay-buttons">
+  <div class="register-panel" id="register-panel">
+    <div class="overlay">
       <h2 id="overlay-text">BENVENUTO!</h2>
-      <p id="overlay-description">Se non sei ancora registrato, fallo subito</p>
+      <p id="overlay-description">Se non sei ancora registrato, scegli il tuo ruolo</p>
+      <div class="btn-group">
+        <button type="button" onclick="mostraRegistrazione('studente')">Studente</button>
+        <button type="button" onclick="mostraRegistrazione('docente')">Docente</button>
+      </div>
     </div>
   </div>
 </div>
@@ -133,51 +194,64 @@
     inp.type = inp.type === "password" ? "text" : "password";
   }
 
-  const panel = document.getElementById("image-panel");
-  const form = document.getElementById("form-register");
-  const overlay = document.getElementById("overlay-buttons");
-  const overlayText = document.getElementById("overlay-text");
-  const overlayDesc = document.getElementById("overlay-description");
+  function mostraRegistrazione(tipo) {
+    document.getElementById("container").classList.add("show-register");
+    document.getElementById("form-register").style.display = "flex";
+    document.getElementById("tipo-utente").value = tipo;
+    document.getElementById("campo-codice-univoco").style.display = tipo === "docente" ? "block" : "none";
+  }
 
-  const btnRegister = document.createElement("button");
-  btnRegister.id = "btn-register";
-  btnRegister.innerText = "REGISTRATI";
+  function tornaIndietro() {
+    document.getElementById("container").classList.remove("show-register");
+    document.getElementById("form-register").style.display = "none";
+  }
 
-  const btnBack = document.createElement("button");
-  btnBack.id = "btn-login";
-  btnBack.innerText = "INDIETRO";
+  document.getElementById("registrazioneForm").onsubmit = e => {
+    e.preventDefault();
+    const tipo = document.getElementById("tipo-utente").value;
 
-  btnRegister.onclick = () => {
-    panel.classList.add("active");
-    form.classList.add("active");
-    overlay.replaceChildren(overlayText, btnBack);
+    const nuovoUtente = {
+      nome: document.getElementById("nome").value.trim(),
+      cognome: document.getElementById("cognome").value.trim(),
+      scuola: document.getElementById("sda").value.trim(),
+      email: document.getElementById("email").value.toLowerCase(),
+      cf: document.getElementById("cf").value.trim(),
+      dataNascita: document.getElementById("data-nascita").value,
+      password: document.getElementById("password").value,
+      codiceUnivoco: document.getElementById("cu").value.trim()
+    };
+
+    const utenti = JSON.parse(localStorage.getItem("utenti") || "[]");
+    if (utenti.some(u => u.email === nuovoUtente.email)) {
+      alert("Email già registrata!");
+      return;
+    }
+
+    utenti.push(nuovoUtente);
+    localStorage.setItem("utenti", JSON.stringify(utenti));
+    alert("Registrazione completata!");
+    tornaIndietro();
   };
-
-  btnBack.onclick = () => {
-    panel.classList.remove("active");
-    form.classList.remove("active");
-    overlay.replaceChildren(overlayText, overlayDesc, btnRegister);
-  };
-
-  overlay.appendChild(btnRegister);
 
   document.getElementById("loginForm").onsubmit = e => {
     e.preventDefault();
     const email = document.getElementById("login-email").value.toLowerCase();
-    if (email === "aldodamiano.gta@gmail.com") {
-  localStorage.setItem("tipo", "docente");
-  window.location.href = "dashboardDocente.html";
-} else {
-  localStorage.setItem("tipo", "studente");
-  window.location.href = "dashboardStudente.html";
-}
+    const password = document.getElementById("login-password").value;
+    const utenti = JSON.parse(localStorage.getItem("utenti") || "[]");
+    const utente = utenti.find(u => u.email === email && u.password === password);
 
-  };
+    if (!utente) {
+      alert("Credenziali errate o utente non registrato.");
+      return;
+    }
 
-  document.getElementById("registrazioneForm").onsubmit = e => {
-    e.preventDefault();
-    alert("Registrazione completata!");
-    btnBack.click();
+    if (utente.codiceUnivoco) {
+      localStorage.setItem("tipo", "docente");
+      window.location.href = "dashboardDocente.html";
+    } else {
+      localStorage.setItem("tipo", "studente");
+      window.location.href = "dashboardStudente.html";
+    }
   };
 </script>
 
