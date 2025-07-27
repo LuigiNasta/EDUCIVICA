@@ -84,8 +84,10 @@
             //const descrizione = 'descrizione';
 
             // Salva in un cookie (scadenza 1 giorno)
-            document.cookie = `nomeClasse=${encodeURIComponent(nomeClasse)}; path=/; max-age=86400`;
-            document.cookie = `descrizioneClasse=${encodeURIComponent(descrizione)}; path=/; max-age=86400`;
+            // Salvo una stringa nel localStorage
+            localStorage.setItem('nomeClasse', nomeClasse);
+            localStorage.setItem('descrizione', descrizione);
+
 
             // Mostra alert
             alert('Classe creata');

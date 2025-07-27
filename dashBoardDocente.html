@@ -90,20 +90,17 @@
             return null;
         }
 
-        // Recupera i cookie e, se presenti, aggiunge una nuova classe
-        const nomeClasse = getCookieValue('nomeClasse');
+        const nome=localStorage.getItem("nomeClasse");
         
 
-        if (nomeClasse) {
+        if (nome) {
             classi.push({
                 id_classe: 4,
-                nome_classe: nomeClasse,
+                nome_classe: nome,
                 punteggio_totale: 0
             });
 
-            // Cancella i cookie dopo l'uso
-            document.cookie = "nomeClasse=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = "descrizioneClasse=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+       
         }
 
         // Stampa le classi nella pagina
