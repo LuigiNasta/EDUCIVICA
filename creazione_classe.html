@@ -80,6 +80,8 @@
 
             const nomeClasse = document.getElementById('nome-classe').value;
             const descrizione = document.getElementById('descrizione').value;
+            //const nomeClasse = 'nome-classe';
+            //const descrizione = 'descrizione';
 
             // Salva in un cookie (scadenza 1 giorno)
             document.cookie = `nomeClasse=${encodeURIComponent(nomeClasse)}; path=/; max-age=86400`;
@@ -91,7 +93,7 @@
             // Reindirizza alla dashboard
             window.location.href = 'dashboardDocente.html';
 
-            alert(document.cookie);
+            
 
 
         });
