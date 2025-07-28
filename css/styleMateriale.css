@@ -184,3 +184,32 @@ form div {
 .azioni a:hover {
   color: #0056b3;
 }
+
+.aggiungi-materiale {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.aggiungi-materiale {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.bottone-materiale {
+  display: inline-block;
+  padding: 30px 30px;
+  font-size: 100.2rem;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.bottone-materiale i {
+  margin-right: 8px;
+}
+
+.bottone-materiale:hover {
+  background-color: #0056b3;
+}
